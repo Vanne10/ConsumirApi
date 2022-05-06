@@ -6,22 +6,17 @@ export default function App() {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
-    fetch("https://dog.ceo/api/breeds/image/random")
-      .then((response) => response.json())
-      .then((dog) => {
-        setImageUrl(dog.message);
-        setIsLoading(false);
-      });
-  }, []);
-
-  const fetchRandomDog = () => { /* ⬅️ función para obtener un perrito aleatorio */
-    setIsLoading(true);
-    fetch("https://dog.ceo/api/breeds/image/random")
-      .then((response) => response.json())
-      .then((dog) => {
-        setImageUrl(dog.message);
-        setIsLoading(false);
-      });
+    if (isLoading) { // ⬅️ solo hacer la solicitud si isLoading = true
+      fetch("https://dog.ceo/api/breeds/image/random")
+        .then((response) => response.json())
+        .then((dog) => {
+          setImageUrl(dog.message);
+          setIsLoading(false);
+        });
+    }
+  }, [isLoading]); // ⬅️ ahora este efecto se ejecutará cada vez que cambie este estado
+  const randomDog = () => {
+    setIsLoading(true); // ⬅️ simplemente actualizamos isLoading a true
   };
 
   if (isLoading) {
