@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
-
 export default function App() {
+
   const [isLoading, setIsLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
-    if (isLoading) { // ⬅️ solo hacer la solicitud si isLoading = true
+    if (isLoading) {
+      // ⬅️ solo hacer la solicitud si isLoading = true
       fetch("https://dog.ceo/api/breeds/image/random")
         .then((response) => response.json())
         .then((dog) => {
@@ -15,6 +16,7 @@ export default function App() {
         });
     }
   }, [isLoading]); // ⬅️ ahora este efecto se ejecutará cada vez que cambie este estado
+
   const randomDog = () => {
     setIsLoading(true); // ⬅️ simplemente actualizamos isLoading a true
   };
@@ -30,7 +32,7 @@ export default function App() {
   return (
     <div className="App">
       <img src={imageUrl} alt="Imagen de perrito aleatoria" />
-      <button onClick={fetchRandomDog}> {/* ⬅️ llamarla cuando hagamos clic */}
+      <button onClick={randomDog}>
         ¡Otro!{" "}
         <span role="img" aria-label="corazón">
           ❤️
